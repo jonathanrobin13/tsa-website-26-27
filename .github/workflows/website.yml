@@ -1,0 +1,77 @@
+name: Deploy Website
+
+on:
+  push:
+<<<<<<< HEAD:website/website.yml
+    branches: ["main"] 
+=======
+    branches: ["main"]
+>>>>>>> 92edd3c3bd9fb75901ee452563bb17bb66a1ed4a:.github/workflows/website.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+<<<<<<< HEAD:website/website.yml
+    runs-on: ubuntu-latest
+    
+  
+    defaults:
+      run:
+        working-directory: ./website
+=======
+>>>>>>> 92edd3c3bd9fb75901ee452563bb17bb66a1ed4a:.github/workflows/website.yml
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+<<<<<<< HEAD:website/website.yml
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: ./website/package-lock.json 
+=======
+          node-version: lts/*
+          cache: npm
+>>>>>>> 92edd3c3bd9fb75901ee452563bb17bb66a1ed4a:.github/workflows/website.yml
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build BasketLab
+        run: npm run build
+
+<<<<<<< HEAD:website/website.yml
+      - name: Upload Artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+			path: './website/dist' 
+=======
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+>>>>>>> 92edd3c3bd9fb75901ee452563bb17bb66a1ed4a:.github/workflows/website.yml
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
